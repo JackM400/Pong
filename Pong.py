@@ -10,12 +10,23 @@ gameWindow.title("Pong - JackM400")
 gameWindow.setup(width=900, height=700)
 gameWindow.bgcolor("black")
 
+# left bar
 leftBar = turtle.Turtle()
 leftBar.speed(0)
 leftBar.shape("square")
+leftBar.shapesize(stretch_wid=7, stretch_len=1)
 leftBar.color("white")
 leftBar.penup()
-leftBar.goto(-390, 0)
+leftBar.goto(-390, 200)
+
+# right bar
+rightBar = turtle.Turtle()
+rightBar.speed(0)
+rightBar.shape("square")
+rightBar.shapesize(stretch_wid=7, stretch_len=1)
+rightBar.color("white")
+rightBar.penup()
+rightBar.goto(390, -200)
 
 # main function/loop
 while isRunning:
