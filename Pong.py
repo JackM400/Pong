@@ -49,10 +49,26 @@ def moveLeftBarDown():
     leftBar.sety(leftbarposition_y)
 
 
+def moveRightBarUp():
+    rightbarposition_y = rightBar.ycor()
+    rightbarposition_y += 20
+    rightBar.sety(rightbarposition_y)
+
+
+def moveRightBarDown():
+    rightbarposition_y = rightBar.ycor()
+    rightbarposition_y -= 20
+    rightBar.sety(rightbarposition_y)
+
+
 # get input
 gameWindow.listen()
+# Left player controls
 gameWindow.onkeypress(moveLeftBarUp, "w")
 gameWindow.onkeypress(moveLeftBarDown, "s")
+# Right player controls
+gameWindow.onkeypress(moveRightBarUp, "Up")
+gameWindow.onkeypress(moveRightBarDown, "Down")
 
 # main function/loop
 while isRunning:
