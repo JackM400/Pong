@@ -1,7 +1,7 @@
 # JackM400
 # jack.millar400@gmail.com
 # Python Pong test
-
+from random import *
 import turtle
 
 isRunning = True
@@ -13,12 +13,12 @@ gameWindow.bgcolor("black")
 # pong
 pong = turtle.Turtle()
 pong.speed(0)
-pong.shape("square")
+pong.shape("circle")
 pong.color("white")
 pong.penup()
 pong.goto(0, 0)
-pong.dx = 1
-pong.dy = 1
+pong.dx = 4
+pong.dy = 4
 
 # left bar
 leftBar = turtle.Turtle()
@@ -80,4 +80,39 @@ while isRunning:
     # update ball y position
     pong.sety(pong.ycor() + pong.dy)
 
+    # constrain elements to screen
+    # ball constraints
+    if pong.ycor() > 338:
+        pong.sety(338)
+        pong.dy *= -1
+    if pong.ycor() < -338:
+        pong.sety(-338)
+        pong.dy *= -1
+    if pong.xcor() > 438:
+        pong.setx(438)
+        pong.dx *= -1
+    if pong.xcor() < -438:
+        pong.setx(-438)
+        pong.dx *= -1
 
+    # bar constraints
+    # option 1 : bounce
+    # left bar
+    if leftBar.ycor() > 290:
+        leftBar.sety(290)
+    if leftBar.ycor() < -290:
+        leftBar.sety(-290)
+
+    # option 2 :emerge
+    if rightBar.ycor() > 430:
+        rightBar.sety(-410)
+    if rightBar.ycor() < -430:
+        rightBar.sety(410)
+
+    # collisions
+    if (pong.xcor() > 375 and pong.xcor() < 385) and (pong.ycor() < rightBar.ycor() + 35 and rightBar.ycor() - 35):
+        pong.setx(375)
+        pong.dx *= -1
+    if (pong.xcor() < -375 and pong.xcor() > -385) and (pong.ycor() < leftBar.ycor() + 35 and leftBar.ycor() - 35):
+        pong.setx(-375)
+        pong.dx *= -1
