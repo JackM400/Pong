@@ -2,6 +2,12 @@
 # jack.millar400@gmail.com
 # Python Pong test
 from random import *
+
+# TODO
+#  Game Freezes when sound played ==> thread not working ,
+#  hit box issues on bars and ball
+
+
 import turtle
 import winsound
 import time
@@ -68,6 +74,7 @@ def moveRightBarDown():
 # score
 scoreP1 = 0
 scoreP2 = 0
+winner = ""
 
 # get input
 gameWindow.listen()
@@ -95,18 +102,30 @@ while isRunning:
     # update ball y position
     pong.sety(pong.ycor() + pong.dy)
 
-    if scoreP1 > 5 or scoreP2 > 5:
+    if scoreP1 >= 5 or scoreP2 >= 5:
         scoreBoard.clear()
+        scoreBoard.write("Game Over", align="center", font=("Arial", 32, "normal"))
+        time.sleep(3)
+        scoreBoard.clear()
+        if scoreP1 >= 5:
+            scoreBoard.write("Player 1 Wins", align="center", font=("Arial", 30, "normal"))
+        if scoreP2 >= 5:
+            scoreBoard.write("Player 2 Wins", align="center", font=("Arial", 30, "normal"))
+        time.sleep(3)
+        isRunning = False
 
     # constrain elements to screen
     # ball constraints
     if pong.ycor() > 338:
+        winsound.Beep(200, 50), winsound.SND_ASYNC
         pong.sety(338)
         pong.dy *= -1
     if pong.ycor() < -338:
+        winsound.Beep(200, 50), winsound.SND_ASYNC
         pong.sety(-338)
         pong.dy *= -1
     if pong.xcor() > 438:
+        winsound.Beep(100, 50), winsound.SND_ASYNC
         scoreBoard.clear()
         scoreP1 += 1
         scoreBoard.write("Player 1: {}    Player 2: {}".format(scoreP1, scoreP2), align="center",
@@ -114,6 +133,7 @@ while isRunning:
         pong.setx(438)
         pong.dx *= -1
     if pong.xcor() < -438:
+        winsound.Beep(100, 50), winsound.SND_ASYNC
         scoreBoard.clear()
         scoreP2 += 1
         scoreBoard.write("Player 1: {}    Player 2: {}".format(scoreP1, scoreP2), align="center",
@@ -125,23 +145,26 @@ while isRunning:
     # option 1 : bounce
     # left bar
     if leftBar.ycor() > 290:
-        winsound.Beep(200, 50) , winsound.SND_ASYNC
+        winsound.Beep(200, 50), winsound.SND_ASYNC
         leftBar.sety(290)
     if leftBar.ycor() < -290:
+        winsound.Beep(200, 50), winsound.SND_ASYNC
         leftBar.sety(-290)
 
     if rightBar.ycor() > 290:
         winsound.Beep(200, 50), winsound.SND_ASYNC
         rightBar.sety(290)
     if rightBar.ycor() < -290:
+        winsound.Beep(200, 50), winsound.SND_ASYNC
         rightBar.sety(-290)
 
     # collisions
-    if (pong.xcor() > 375 and pong.xcor() < 385) and (pong.ycor() < rightBar.ycor() + 35 and rightBar.ycor() - 35):
+    if (375 < pong.xcor() < 385) and (pong.ycor() < rightBar.ycor() + 00 and rightBar.ycor() - 0):
         winsound.Beep(600, 100), winsound.SND_ASYNC
-        pong.setx(375)
+        pong.setx(374)
         pong.dx *= -1
-    if (pong.xcor() < -375 and pong.xcor() > -385) and (pong.ycor() < leftBar.ycor() + 35 and leftBar.ycor() - 35):
-        winsound.Beep(440, 100) , winsound.SND_ASYNC
-        pong.setx(-375)
+
+    if (-375 > pong.xcor() > -385) and (pong.ycor() < leftBar.ycor() + 10 and leftBar.ycor() - 10):
+        winsound.Beep(440, 100), winsound.SND_ASYNC
+        pong.setx(-374)
         pong.dx *= -1
