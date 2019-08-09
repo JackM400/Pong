@@ -36,6 +36,24 @@ rightBar.color("white")
 rightBar.penup()
 rightBar.goto(390, -200)
 
+
+def moveLeftBarUp():
+    leftbarposition_y = leftBar.ycor()
+    leftbarposition_y += 20
+    leftBar.sety(leftbarposition_y)
+
+
+def moveLeftBarDown():
+    leftbarposition_y = leftBar.ycor()
+    leftbarposition_y -= 20
+    leftBar.sety(leftbarposition_y)
+
+
+# get input
+gameWindow.listen()
+gameWindow.onkeypress(moveLeftBarUp, "w")
+gameWindow.onkeypress(moveLeftBarDown, "s")
+
 # main function/loop
 while isRunning:
     gameWindow.update()
