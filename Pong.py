@@ -3,6 +3,8 @@
 # Python Pong test
 from random import *
 import turtle
+import winsound
+import time
 
 isRunning = True
 gameWindow = turtle.Screen()
@@ -93,6 +95,9 @@ while isRunning:
     # update ball y position
     pong.sety(pong.ycor() + pong.dy)
 
+    if scoreP1 > 5 or scoreP2 > 5:
+        scoreBoard.clear()
+
     # constrain elements to screen
     # ball constraints
     if pong.ycor() > 338:
@@ -104,12 +109,15 @@ while isRunning:
     if pong.xcor() > 438:
         scoreBoard.clear()
         scoreP1 += 1
-        scoreBoard.write("Player 1: " + scoreP1 + " Player 2: " + scoreP2, align="center", font=("Arial", 26, "normal"))
+        scoreBoard.write("Player 1: {}    Player 2: {}".format(scoreP1, scoreP2), align="center",
+                         font=("Arial", 26, "normal"))
         pong.setx(438)
         pong.dx *= -1
     if pong.xcor() < -438:
         scoreBoard.clear()
         scoreP2 += 1
+        scoreBoard.write("Player 1: {}    Player 2: {}".format(scoreP1, scoreP2), align="center",
+                         font=("Arial", 26, "normal"))
         pong.setx(-438)
         pong.dx *= -1
 
@@ -117,20 +125,23 @@ while isRunning:
     # option 1 : bounce
     # left bar
     if leftBar.ycor() > 290:
+        winsound.Beep(200, 50) , winsound.SND_ASYNC
         leftBar.sety(290)
     if leftBar.ycor() < -290:
         leftBar.sety(-290)
 
-    # option 2 :emerge
-    if rightBar.ycor() > 430:
-        rightBar.sety(-410)
-    if rightBar.ycor() < -430:
-        rightBar.sety(410)
+    if rightBar.ycor() > 290:
+        winsound.Beep(200, 50), winsound.SND_ASYNC
+        rightBar.sety(290)
+    if rightBar.ycor() < -290:
+        rightBar.sety(-290)
 
     # collisions
     if (pong.xcor() > 375 and pong.xcor() < 385) and (pong.ycor() < rightBar.ycor() + 35 and rightBar.ycor() - 35):
+        winsound.Beep(600, 100), winsound.SND_ASYNC
         pong.setx(375)
         pong.dx *= -1
     if (pong.xcor() < -375 and pong.xcor() > -385) and (pong.ycor() < leftBar.ycor() + 35 and leftBar.ycor() - 35):
+        winsound.Beep(440, 100) , winsound.SND_ASYNC
         pong.setx(-375)
         pong.dx *= -1
