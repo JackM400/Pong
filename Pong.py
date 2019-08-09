@@ -63,6 +63,10 @@ def moveRightBarDown():
     rightBar.sety(rightbarposition_y)
 
 
+# score
+scoreP1 = 0
+scoreP2 = 0
+
 # get input
 gameWindow.listen()
 # Left player controls
@@ -71,6 +75,15 @@ gameWindow.onkeypress(moveLeftBarDown, "s")
 # Right player controls
 gameWindow.onkeypress(moveRightBarUp, "Up")
 gameWindow.onkeypress(moveRightBarDown, "Down")
+
+# Terminal - Score
+scoreBoard = turtle.Turtle()
+scoreBoard.hideturtle()
+scoreBoard.goto(0, 300)
+scoreBoard.color("white")
+scoreBoard.speed(0)
+scoreBoard.penup()
+scoreBoard.write("Player 1: 0    Player 2: 0", align="center", font=("Arial", 26, "normal"))
 
 # main function/loop
 while isRunning:
@@ -89,9 +102,14 @@ while isRunning:
         pong.sety(-338)
         pong.dy *= -1
     if pong.xcor() > 438:
+        scoreBoard.clear()
+        scoreP1 += 1
+        scoreBoard.write("Player 1: " + scoreP1 + " Player 2: " + scoreP2, align="center", font=("Arial", 26, "normal"))
         pong.setx(438)
         pong.dx *= -1
     if pong.xcor() < -438:
+        scoreBoard.clear()
+        scoreP2 += 1
         pong.setx(-438)
         pong.dx *= -1
 
