@@ -17,6 +17,8 @@ pong.shape("square")
 pong.color("white")
 pong.penup()
 pong.goto(0, 0)
+pong.dx = 1
+pong.dy = 1
 
 # left bar
 leftBar = turtle.Turtle()
@@ -73,3 +75,9 @@ gameWindow.onkeypress(moveRightBarDown, "Down")
 # main function/loop
 while isRunning:
     gameWindow.update()
+    # update ball x position
+    pong.setx(pong.xcor() + pong.dx)
+    # update ball y position
+    pong.sety(pong.ycor() + pong.dy)
+
+
